@@ -1,5 +1,5 @@
 import type { ExtensionAPI, ExtensionContext } from '@mariozechner/pi-coding-agent';
-import type { ExtensionSessionRuntime } from '@sero/common';
+import type { ExtensionSessionRuntime } from '@sero-ai/common';
 
 export type KanbanSessionRuntime = ExtensionSessionRuntime;
 

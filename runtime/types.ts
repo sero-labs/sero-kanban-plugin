@@ -8,7 +8,7 @@ import type {
   AppRuntimeStartManagedDevServerResult,
   AppRuntimeWorkspaceRuntimeResolution,
   KanbanState,
-} from '@sero/common';
+} from '@sero-ai/common';
 
 export type {
   AppRuntime,
@@ -19,7 +19,7 @@ export type {
   AppRuntimeDevServer,
   AppRuntimeStartManagedDevServerResult,
   AppRuntimeWorkspaceRuntimeResolution,
-} from '@sero/common';
+} from '@sero-ai/common';
 
 export type KanbanRuntimeState = KanbanState;
 

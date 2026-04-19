@@ -1,4 +1,4 @@
-import type { AppRuntimeWorkspaceSyncResult } from '@sero/common';
+import type { AppRuntimeWorkspaceSyncResult } from '@sero-ai/common';
 import type { KanbanRuntimeHost } from '../types';
 import type { KanbanState } from './types';
 

@@ -1,4 +1,4 @@
-import type { AppToolResult } from '@sero/common';
+import type { AppToolResult } from '@sero-ai/common';
 import { useAppTools } from '@sero-ai/app-runtime';
 import { useCallback, useMemo, useState } from 'react';
 

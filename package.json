@@ -82,8 +82,8 @@
   },
   "devDependencies": {
     "@module-federation/vite": "^1.11.0",
-    "@sero-ai/app-runtime": "file:./vendor/sero-ai-app-runtime",
-    "@sero/common": "file:./vendor/sero-common",
+    "@sero-ai/app-runtime": "^0.1.1",
+    "@sero-ai/common": "^0.1.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^22.19.11",
     "@types/react": "^19.2.13",

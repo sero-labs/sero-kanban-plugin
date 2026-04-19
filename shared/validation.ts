@@ -1,11 +1,11 @@
 /**
  * Kanban transition validation — canonical shared exports.
  *
- * The source of truth now lives in `@sero/common` so the host and plugin
+ * The source of truth now lives in `@sero-ai/common` so the host and plugin
  * consume the same state model and validation helpers.
  */
 
-export type { ValidationResult } from '@sero/common';
+export type { ValidationResult } from '@sero-ai/common';
 
 export {
   validateCardTransition,
@@ -13,4 +13,4 @@ export {
   getUnmetDependencies,
   getManualMoveTargets,
   validateManualMove,
-} from '@sero/common';
+} from '@sero-ai/common';

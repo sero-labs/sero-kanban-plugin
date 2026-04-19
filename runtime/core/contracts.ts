@@ -2,7 +2,7 @@ import {
   getUnmetDependencies as getSharedUnmetDependencies,
   validateCardTransition,
   type ValidationResult,
-} from '@sero/common';
+} from '@sero-ai/common';
 import type { Card, Column, KanbanState } from './types';
 
 export type { ValidationResult };

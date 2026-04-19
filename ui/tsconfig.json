@@ -14,11 +14,8 @@
       "DOM.Iterable"
     ],
     "paths": {
-      "@sero-ai/app-runtime": [
-        "../vendor/sero-ai-app-runtime/src/index.ts"
-      ],
       "@sero/common": [
-        "../vendor/sero-common/src/index.ts"
+        "../node_modules/@sero-ai/common/src/index.ts"
       ]
     }
   },

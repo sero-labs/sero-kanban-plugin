@@ -12,12 +12,7 @@
     ],
     "lib": [
       "ES2023"
-    ],
-    "paths": {
-      "@sero/common": [
-        "../../../packages/common/src/index.ts"
-      ]
-    }
+    ]
   },
   "include": [
     "./**/*",

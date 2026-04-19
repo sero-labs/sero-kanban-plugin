@@ -1,7 +1,7 @@
 /**
  * Shared Kanban plugin types.
  *
- * The host↔plugin board contract now lives in `@sero/common`; this file keeps
+ * The host↔plugin board contract now lives in `@sero-ai/common`; this file keeps
  * plugin-local imports stable and adds the plugin-specific error-log types.
  */
 
@@ -18,7 +18,7 @@ export type {
   Card,
   KanbanSettings,
   KanbanState,
-} from '@sero/common';
+} from '@sero-ai/common';
 
 export {
   COLUMNS,
@@ -27,7 +27,7 @@ export {
   DEFAULT_KANBAN_STATE,
   createDefaultKanbanState,
   createCard,
-} from '@sero/common';
+} from '@sero-ai/common';
 
 // ── Error reporting ─────────────────────────────────────────
 

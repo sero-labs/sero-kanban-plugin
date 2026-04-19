@@ -1,6 +1,6 @@
 import type { ToolDefinition } from '@mariozechner/pi-coding-agent';
 import { Type, type Static } from '@sinclair/typebox';
-import type { Card } from '@sero/common';
+import type { Card } from '@sero-ai/common';
 
 const PlanSubtaskParams = Type.Object({
   id: Type.String({ minLength: 1, description: 'Stable subtask ID.' }),

@@ -1,4 +1,4 @@
-import type { Card, ReviewMode } from '@sero/common';
+import type { Card, ReviewMode } from '@sero-ai/common';
 
 interface ConflictResolutionPromptOptions {
   reviewMode?: ReviewMode;
