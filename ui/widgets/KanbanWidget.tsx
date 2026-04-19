@@ -8,6 +8,7 @@
 import { useMemo } from 'react';
 import { useAppState } from '@sero-ai/app-runtime';
 import { motion } from 'motion/react';
+import '../styles.css';
 import type { KanbanState, Column, Card, Priority } from '../../shared/types';
 import { COLUMNS, COLUMN_LABELS, DEFAULT_KANBAN_STATE } from '../../shared/types';
 

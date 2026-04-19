@@ -12,6 +12,7 @@
 import { useState, useCallback, useContext, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { AppContext, useAppState, useAgentPrompt } from '@sero-ai/app-runtime';
+import './styles.css';
 import type { KanbanState, Card, Column, Priority } from '../shared/types';
 import {
   DEFAULT_KANBAN_STATE,
