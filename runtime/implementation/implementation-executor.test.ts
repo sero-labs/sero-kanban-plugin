@@ -171,9 +171,6 @@ function createContext(
         restart: async () => false,
         unregister: () => false,
       },
-      notifications: {
-        notify: () => {},
-      },
     },
   };
 }

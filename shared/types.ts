@@ -115,6 +115,10 @@ export interface KanbanState {
   settings: KanbanSettings;
 }
 
+export type PartialKanbanState = Omit<Partial<KanbanState>, 'settings'> & {
+  settings?: Partial<KanbanSettings>;
+};
+
 export const COLUMNS: Column[] = ['backlog', 'planning', 'in-progress', 'review', 'done'];
 
 export const COLUMN_LABELS: Record<Column, string> = {
@@ -147,6 +151,31 @@ export function createDefaultKanbanState(): KanbanState {
 }
 
 export const DEFAULT_KANBAN_STATE: KanbanState = createDefaultKanbanState();
+
+function getNextCardId(cards: Card[]): number {
+  const maxId = cards.reduce((max, card) => {
+    const numericId = Number.parseInt(card.id, 10);
+    return Number.isFinite(numericId) ? Math.max(max, numericId) : max;
+  }, 0);
+  return maxId + 1;
+}
+
+export function normalizeKanbanState(state: PartialKanbanState | null | undefined): KanbanState {
+  const defaults = createDefaultKanbanState();
+  const cards = Array.isArray(state?.cards) ? state.cards : defaults.cards;
+  const nextId = typeof state?.nextId === 'number' && Number.isFinite(state.nextId) && state.nextId > 0
+    ? state.nextId
+    : getNextCardId(cards);
+
+  return {
+    cards,
+    nextId,
+    settings: {
+      ...defaults.settings,
+      ...state?.settings,
+    },
+  };
+}
 
 export function createCard(
   id: string,

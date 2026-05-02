@@ -1,4 +1,5 @@
 import path from 'path';
+import { normalizeKanbanState } from '../../shared/types';
 import type { Card, Column, KanbanState } from './types';
 import type { OrchestratorDeps } from './orchestrator-types';
 import {
@@ -53,7 +54,8 @@ export class KanbanOrchestrator {
     if (existing?.stateFilePath === stateFilePath) return;
     if (existing) this.unwatchWorkspace(workspaceId);
 
-    const initial = await this.deps.host.appState.read<KanbanState>(stateFilePath);
+    const rawInitial = await this.deps.host.appState.read<KanbanState>(stateFilePath);
+    const initial = rawInitial ? normalizeKanbanState(rawInitial) : null;
     const lastColumnMap = new Map<string, Column>();
     if (initial?.cards) {
       for (const card of initial.cards) {
@@ -78,19 +80,20 @@ export class KanbanOrchestrator {
   }
 
   async onStateChange(stateFilePath: string, newState: KanbanState): Promise<void> {
+    const state = normalizeKanbanState(newState);
     let workspace = findWatchedWorkspace(this.watched, stateFilePath);
     if (!workspace) {
-      workspace = autoWatchWorkspace(this.deps, this.watched, stateFilePath, newState);
+      workspace = autoWatchWorkspace(this.deps, this.watched, stateFilePath, state);
     }
-    if (!workspace || !newState?.cards) return;
+    if (!workspace || !state.cards) return;
 
-    this.autoMergeMonitor.syncWorkspace(workspace, newState);
+    this.autoMergeMonitor.syncWorkspace(workspace, state);
 
-    for (const card of newState.cards) {
+    for (const card of state.cards) {
       await this.handleCardStateChange(workspace, card);
     }
 
-    this.refreshWatchedWorkspaceSnapshot(workspace, newState);
+    this.refreshWatchedWorkspaceSnapshot(workspace, state);
   }
 
   private async handleCardStateChange(

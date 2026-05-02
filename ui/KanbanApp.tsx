@@ -13,13 +13,14 @@ import { useState, useCallback, useContext, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { AppContext, useAppState, useAgentPrompt } from '@sero-ai/app-runtime';
 import './styles.css';
-import type { KanbanState, Card, Column, Priority } from '../shared/types';
+import type { KanbanState, PartialKanbanState, Card, Column, Priority } from '../shared/types';
 import {
   DEFAULT_KANBAN_STATE,
   COLUMNS,
   COLUMN_LABELS,
   PRIORITY_ORDER,
   createCard,
+  normalizeKanbanState,
 } from '../shared/types';
 import { applyManualMove } from './lib/card-workflow';
 import { ColumnView } from './components/ColumnView';
@@ -101,7 +102,11 @@ const CUSTOM_STYLES = `
 
 export function KanbanApp() {
   const appContext = useContext(AppContext);
-  const [state, updateState] = useAppState<KanbanState>(DEFAULT_KANBAN_STATE);
+  const [rawState, updateRawState] = useAppState<PartialKanbanState>(DEFAULT_KANBAN_STATE);
+  const state = useMemo(() => normalizeKanbanState(rawState), [rawState]);
+  const updateState = useCallback((updater: (prev: KanbanState) => KanbanState) => {
+    updateRawState((prev) => normalizeKanbanState(updater(normalizeKanbanState(prev))));
+  }, [updateRawState]);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const yoloEnabled = state.settings.yoloMode === true;

@@ -10,6 +10,7 @@ import path from 'node:path';
 import type { KanbanState, Card } from '../shared/types';
 import {
   createDefaultKanbanState,
+  normalizeKanbanState,
   COLUMNS,
   COLUMN_LABELS,
   PRIORITY_ORDER,
@@ -39,7 +40,7 @@ function createStateReadError(filePath: string, error: unknown): Error {
 export async function readState(filePath: string): Promise<KanbanState> {
   try {
     const raw = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(raw) as KanbanState;
+    return normalizeKanbanState(JSON.parse(raw));
   } catch (error) {
     if (isMissingFileError(error)) {
       return createDefaultKanbanState();
@@ -53,7 +54,7 @@ export async function writeState(filePath: string, state: KanbanState): Promise<
   await fs.mkdir(dir, { recursive: true });
 
   const tmpPath = `${filePath}.tmp.${Date.now()}`;
-  await fs.writeFile(tmpPath, JSON.stringify(state, null, 2), 'utf8');
+  await fs.writeFile(tmpPath, JSON.stringify(normalizeKanbanState(state), null, 2), 'utf8');
   await fs.rename(tmpPath, filePath);
 }
 

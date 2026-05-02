@@ -1,4 +1,4 @@
-import { createDefaultKanbanState } from '../../shared/types';
+import { createDefaultKanbanState, normalizeKanbanState } from '../../shared/types';
 import type { AppRuntimeStateApi } from '../types';
 import type { Card, KanbanState } from './types';
 
@@ -13,7 +13,7 @@ export async function updateCard(
   update: Partial<Card>,
 ): Promise<void> {
   await appState.update<KanbanState>(stateFilePath, (raw) => {
-    const state = raw ?? fallbackState();
+    const state = normalizeKanbanState(raw ?? fallbackState());
     return {
       ...state,
       cards: state.cards.map((card) =>
@@ -29,5 +29,6 @@ export async function readCard(
   cardId: string,
 ): Promise<Card | null> {
   const raw = await appState.read<KanbanState>(stateFilePath);
-  return raw?.cards.find((card) => card.id === cardId) ?? null;
+  const state = raw ? normalizeKanbanState(raw) : null;
+  return state?.cards.find((card) => card.id === cardId) ?? null;
 }

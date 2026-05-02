@@ -29,6 +29,14 @@ describe('kanban state I/O', () => {
     await expect(readState(statePath)).rejects.toThrow(/Kanban board state/);
   });
 
+  it('hydrates settings for older board state files', async () => {
+    await fs.writeFile(statePath, JSON.stringify({ cards: [], nextId: 1 }), 'utf8');
+
+    const state = await readState(statePath);
+
+    expect(state).toEqual(createDefaultKanbanState());
+  });
+
   it('writes and reads back valid board state', async () => {
     const state = createDefaultKanbanState();
     state.cards.push({

@@ -120,9 +120,6 @@ function createHost(initialState: KanbanState): {
       restart: async () => false,
       unregister: () => false,
     },
-    notifications: {
-      notify: () => {},
-    },
   } satisfies KanbanRuntimeHost;
 
   return {
