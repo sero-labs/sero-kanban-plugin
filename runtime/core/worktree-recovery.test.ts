@@ -15,6 +15,11 @@ const STALE_ERROR = new Error(
     + "use 'add -f' to override, or 'prune' or 'remove' to clear",
 );
 
+const EXISTING_DIRECTORY_ERROR = new Error(
+  "Command failed: git worktree add /tmp/workspace/.sero/worktrees/card-4 chore/example-4\n"
+    + "fatal: '/tmp/workspace/.sero/worktrees/card-4' already exists",
+);
+
 function createHost(createWorktree: KanbanRuntimeHost['git']['createWorktree']) {
   const removeWorktree = vi.fn(async () => {});
   const host = {
@@ -38,14 +43,18 @@ function createHost(createWorktree: KanbanRuntimeHost['git']['createWorktree']) 
 }
 
 describe('worktree recovery', () => {
-  it('detects stale git worktree registration errors', () => {
+  it('detects recoverable git worktree create errors', () => {
     expect(isStaleWorktreeRegistrationError(STALE_ERROR)).toBe(true);
+    expect(isStaleWorktreeRegistrationError(EXISTING_DIRECTORY_ERROR)).toBe(true);
     expect(isStaleWorktreeRegistrationError(new Error('permission denied'))).toBe(false);
   });
 
-  it('clears a stale registration and retries creation once', async () => {
+  it.each([
+    ['stale registration', STALE_ERROR],
+    ['existing directory', EXISTING_DIRECTORY_ERROR],
+  ])('clears a %s and retries creation once', async (_label, error) => {
     const createWorktree = vi.fn()
-      .mockRejectedValueOnce(STALE_ERROR)
+      .mockRejectedValueOnce(error)
       .mockResolvedValueOnce(WORKTREE_RESULT);
     const { host, removeWorktree } = createHost(createWorktree);
 

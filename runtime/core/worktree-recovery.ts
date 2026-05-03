@@ -2,9 +2,10 @@ import type { AppRuntimeWorktreeCreateResult } from '@sero-ai/common';
 import type { KanbanRuntimeHost } from '../types';
 import type { Card } from './types';
 
-const STALE_REGISTRATION_PATTERNS = [
+const WORKTREE_CREATE_RECOVERY_PATTERNS = [
   'missing but already registered worktree',
   'use add -f to override, or prune or remove to clear',
+  "' already exists",
 ];
 
 function errorMessage(error: unknown): string {
@@ -14,7 +15,7 @@ function errorMessage(error: unknown): string {
 
 export function isStaleWorktreeRegistrationError(error: unknown): boolean {
   const message = errorMessage(error).toLowerCase();
-  return STALE_REGISTRATION_PATTERNS.some((pattern) => message.includes(pattern));
+  return WORKTREE_CREATE_RECOVERY_PATTERNS.some((pattern) => message.includes(pattern));
 }
 
 async function clearStaleRegistration(
@@ -38,7 +39,7 @@ export async function createWorktreeWithRecovery(
     }
 
     console.warn(
-      `[kanban-runtime] Recovering stale git worktree registration for card #${card.id}: ${errorMessage(error)}`,
+      `[kanban-runtime] Recovering stale git worktree for card #${card.id}: ${errorMessage(error)}`,
     );
     await clearStaleRegistration(host, workspacePath, card.id);
 
@@ -46,7 +47,7 @@ export async function createWorktreeWithRecovery(
       return await host.git.createWorktree(workspacePath, card.id, card.title);
     } catch (retryError) {
       throw new Error(
-        `Recovered stale worktree registration for card #${card.id}, but worktree creation still failed: ${errorMessage(retryError)}`,
+        `Recovered stale worktree for card #${card.id}, but worktree creation still failed: ${errorMessage(retryError)}`,
       );
     }
   }
