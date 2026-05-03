@@ -152,19 +152,6 @@ export function KanbanApp() {
     [updateState],
   );
 
-  const handleReorder = useCallback(
-    (column: Column, newCards: Card[]) => {
-      updateState((prev) => ({
-        ...prev,
-        cards: [
-          ...prev.cards.filter((c) => c.column !== column),
-          ...newCards,
-        ],
-      }));
-    },
-    [updateState],
-  );
-
   const handleDropCard = useCallback(
     (cardId: string, toColumn: Column) => {
       updateState((prev) => {
@@ -275,7 +262,6 @@ export function KanbanApp() {
                 key={col}
                 column={col}
                 cards={cardsByColumn[col]}
-                onReorder={handleReorder}
                 onSelectCard={handleSelectCard}
                 onDropCard={handleDropCard}
                 onAddCard={handleAddCard}

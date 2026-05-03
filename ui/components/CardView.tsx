@@ -5,7 +5,7 @@
  * entrance animations, expandable subtask list with stagger delays.
  */
 
-import { useState, useCallback } from 'react';
+import { memo, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import type { Card } from '../../shared/types';
 import { CardStatusDot, SubtaskStatusDot } from './StatusDot';
@@ -16,13 +16,15 @@ function cn(...classes: (string | false | undefined | null)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-export function CardView({
-  card,
-  onSelect,
-}: {
+interface CardViewProps {
   card: Card;
   onSelect: (card: Card) => void;
-}) {
+}
+
+export const CardView = memo(function CardView({
+  card,
+  onSelect,
+}: CardViewProps) {
   const [expanded, setExpanded] = useState(false);
   const reviewPrStatus = card.column === 'review' && card.status === 'waiting-input' && card.prUrl
     ? getReviewPrStatus(card)
@@ -46,7 +48,6 @@ export function CardView({
 
   return (
     <motion.div
-      layout
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
@@ -239,4 +240,10 @@ export function CardView({
       </div>
     </motion.div>
   );
+}, areCardViewPropsEqual);
+
+function areCardViewPropsEqual(prev: CardViewProps, next: CardViewProps): boolean {
+  return prev.onSelect === next.onSelect
+    && prev.card.id === next.card.id
+    && prev.card.updatedAt === next.card.updatedAt;
 }

@@ -2,12 +2,14 @@
  * ColumnView — a single swim-lane column that stretches to fill
  * its share of the board width (flex-1).
  *
- * Uses HTML5 drag/drop for cross-column moves, Reorder.Group
- * for within-column reordering, AnimatePresence for card transitions.
+ * Uses HTML5 drag/drop for cross-column moves. The card list intentionally
+ * avoids Motion layout/reorder primitives because kanban state receives live
+ * progress updates from background agents, making list-level layout animation a
+ * hot render path.
  */
 
-import { useState, useCallback, useRef } from 'react';
-import { AnimatePresence, Reorder, motion } from 'motion/react';
+import { memo, useState, useCallback, useRef } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import type { Card, Column, Priority } from '../../shared/types';
 import { COLUMN_LABELS } from '../../shared/types';
 import { CardView } from './CardView';
@@ -20,21 +22,21 @@ const COLUMN_ACCENT: Record<Column, string> = {
   done: '#10b981',       // emerald
 };
 
-export function ColumnView({
-  column,
-  cards,
-  onReorder,
-  onSelectCard,
-  onDropCard,
-  onAddCard,
-}: {
+interface ColumnViewProps {
   column: Column;
   cards: Card[];
-  onReorder: (column: Column, cards: Card[]) => void;
   onSelectCard: (card: Card) => void;
   onDropCard: (cardId: string, toColumn: Column) => void;
   onAddCard: (title: string, priority: Priority, column: Column) => void;
-}) {
+}
+
+export const ColumnView = memo(function ColumnView({
+  column,
+  cards,
+  onSelectCard,
+  onDropCard,
+  onAddCard,
+}: ColumnViewProps) {
   const [dragOver, setDragOver] = useState(false);
   const [adding, setAdding] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -120,32 +122,20 @@ export function ColumnView({
       {/* Cards area */}
       <div className="flex-1 overflow-y-auto kb-scrollbar px-3 pb-2">
         {cards.length > 0 ? (
-          <Reorder.Group
-            axis="y"
-            values={cards}
-            onReorder={(newOrder) => onReorder(column, newOrder)}
-            className="flex flex-col gap-1.5"
-          >
-            <AnimatePresence mode="popLayout">
-              {cards.map((card) => (
-                <Reorder.Item
-                  key={card.id}
-                  value={card}
-                  dragListener={false}
-                >
-                  <div
-                    draggable
-                    onDragStart={(e) => {
-                      e.dataTransfer.setData('text/plain', card.id);
-                      e.dataTransfer.effectAllowed = 'move';
-                    }}
-                  >
-                    <CardView card={card} onSelect={onSelectCard} />
-                  </div>
-                </Reorder.Item>
-              ))}
-            </AnimatePresence>
-          </Reorder.Group>
+          <div className="flex flex-col gap-1.5">
+            {cards.map((card) => (
+              <div
+                key={card.id}
+                draggable
+                onDragStart={(e) => {
+                  e.dataTransfer.setData('text/plain', card.id);
+                  e.dataTransfer.effectAllowed = 'move';
+                }}
+              >
+                <CardView card={card} onSelect={onSelectCard} />
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="flex items-center justify-center py-10 text-[11px] text-[var(--kb-dim)]">
             {dragOver ? 'Drop here' : 'No cards'}
@@ -213,4 +203,22 @@ export function ColumnView({
       </div>
     </div>
   );
+}, areColumnViewPropsEqual);
+
+function areColumnViewPropsEqual(prev: ColumnViewProps, next: ColumnViewProps): boolean {
+  return prev.column === next.column
+    && prev.onSelectCard === next.onSelectCard
+    && prev.onDropCard === next.onDropCard
+    && prev.onAddCard === next.onAddCard
+    && cardListsEqual(prev.cards, next.cards);
+}
+
+function cardListsEqual(prev: Card[], next: Card[]): boolean {
+  if (prev.length !== next.length) return false;
+  return prev.every((card, index) => {
+    const nextCard = next[index];
+    return nextCard !== undefined
+      && card.id === nextCard.id
+      && card.updatedAt === nextCard.updatedAt;
+  });
 }
