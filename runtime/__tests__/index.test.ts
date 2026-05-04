@@ -75,6 +75,9 @@ function createContext(): KanbanRuntimeContext {
         restart: async () => false,
         unregister: () => false,
       },
+      notifications: {
+        notify: () => {},
+      },
     },
   };
 }

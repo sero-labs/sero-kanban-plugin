@@ -1,11 +1,13 @@
 import type { ToolDefinition } from '@mariozechner/pi-coding-agent';
-import { Type } from '@sinclair/typebox';
+import { Type, type Static } from 'typebox';
 
 const MarkSubtaskCompleteParams = Type.Object({
   subtaskId: Type.String({
     description: 'Planner subtask ID that has just been completed for the current card.',
   }),
 });
+
+type MarkSubtaskCompleteParamsValue = Static<typeof MarkSubtaskCompleteParams>;
 
 export interface ImplementationProgressToolHandlers {
   markSubtaskComplete: (subtaskId: string) => Promise<'recorded' | 'duplicate'>;
@@ -21,7 +23,7 @@ export function createImplementationProgressTool(
       'Record completion of a planned kanban subtask for the current implementation card. Call this immediately when a subtask is done, before starting the next one, and never batch several completions at the end.',
     parameters: MarkSubtaskCompleteParams,
     async execute(_toolCallId, params) {
-      const subtaskId = String((params as { subtaskId: string }).subtaskId ?? '').trim();
+      const subtaskId = String((params as MarkSubtaskCompleteParamsValue).subtaskId ?? '').trim();
       if (!subtaskId) {
         throw new Error('subtaskId is required');
       }

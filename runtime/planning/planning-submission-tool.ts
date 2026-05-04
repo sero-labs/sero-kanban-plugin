@@ -1,5 +1,5 @@
 import type { ToolDefinition } from '@mariozechner/pi-coding-agent';
-import { Type, type Static } from '@sinclair/typebox';
+import { Type, type Static } from 'typebox';
 import type { Card } from '../core/types';
 
 const PlanSubtaskParams = Type.Object({
