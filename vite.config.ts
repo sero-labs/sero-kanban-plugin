@@ -18,7 +18,6 @@ import { federation } from '@module-federation/vite';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  root: 'ui',
   base: process.env.NODE_ENV === 'production' ? './' : '/',
   plugins: [
     react(),
@@ -51,7 +50,10 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    outDir: '../dist/ui',
+    outDir: 'dist/ui',
     emptyOutDir: true,
+    rollupOptions: {
+      input: 'ui/index.html',
+    },
   },
 });

@@ -1,4 +1,4 @@
-import type { ToolDefinition } from '@mariozechner/pi-coding-agent';
+import type { ToolDefinition } from '@earendil-works/pi-coding-agent';
 import { Type, type Static } from 'typebox';
 import type { ReviewIssue, ReviewResult } from '../../prompts';
 

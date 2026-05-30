@@ -6,7 +6,7 @@ import { createImplementationProgressTool } from './implementation-progress-tool
 import { buildImplementationPrompt } from '../prompts/prompt-implementation';
 import { bridgeSubagentLiveOutput } from './live-output-bridge';
 import { shouldUseLightReview } from '../review/workflow/light-review';
-import type { ToolDefinition } from '@mariozechner/pi-coding-agent';
+import type { ToolDefinition } from '@earendil-works/pi-coding-agent';
 
 export interface ImplementationExecutorDeps {
   host: KanbanRuntimeHost;
