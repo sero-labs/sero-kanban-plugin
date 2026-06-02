@@ -61,7 +61,7 @@ export function ReviewStatusPanel({
             rel="noopener noreferrer"
             style={{
               fontSize: '11px',
-              color: '#818cf8',
+              color: 'var(--kb-accent)',
               textDecoration: 'underline',
               textUnderlineOffset: '2px',
             }}
@@ -80,8 +80,8 @@ export function ReviewStatusPanel({
                 padding: '8px 12px',
                 borderRadius: '8px',
                 border: `1px solid ${status.tone.border}`,
-                backgroundColor: 'rgba(129, 140, 248, 0.12)',
-                color: '#818cf8',
+                backgroundColor: 'var(--kb-accent-glow)',
+                color: 'var(--kb-accent)',
                 fontSize: '12px',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -97,7 +97,7 @@ export function ReviewStatusPanel({
                 rel="noopener noreferrer"
                 style={{
                   fontSize: '11px',
-                  color: '#818cf8',
+                  color: 'var(--kb-accent)',
                   textDecoration: 'underline',
                   textUnderlineOffset: '2px',
                 }}

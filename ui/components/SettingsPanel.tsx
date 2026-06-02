@@ -104,7 +104,7 @@ function SegmentedPicker<T extends string>({
             onClick={() => onChange(option.value)}
             disabled={disabled}
             className={`flex-1 px-3 py-1.5 text-[11px] font-medium transition-colors ${disabled ? 'cursor-wait opacity-60' : 'cursor-pointer'} ${value === option.value
-              ? 'bg-indigo-500/15 text-[var(--kb-accent)]'
+              ? 'bg-[var(--kb-accent-glow)] text-[var(--kb-accent)]'
               : 'text-[var(--kb-muted)] hover:bg-white/[0.03] hover:text-[var(--kb-text)]'}`}
           >
             {option.label}

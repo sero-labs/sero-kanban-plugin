@@ -6,7 +6,7 @@
  * direction are reflected instantly via file watching.
  *
  * Design: full-width swim-lane board with equal-flex columns,
- * DM Sans typography, indigo accents matching Sero design system.
+ * DM Sans typography, and theme-aware local accent tokens.
  */
 
 import { useState, useCallback, useContext, useMemo } from 'react';
@@ -40,9 +40,11 @@ const CUSTOM_STYLES = `
     --kb-text: #e8e4df;
     --kb-muted: #8b8d97;
     --kb-dim: #5c5e6a;
-    --kb-accent: #818cf8;
-    --kb-accent-hover: #a5b4fc;
-    --kb-accent-glow: rgba(129, 140, 248, 0.12);
+    --kb-accent: var(--brand-primary, #34d399);
+    --kb-accent-hover: var(--brand-primary-hover, #6ee7b7);
+    --kb-accent-foreground: var(--brand-primary-foreground, #052e1c);
+    --kb-accent-glow: var(--brand-primary-muted, rgba(52, 211, 153, 0.12));
+    --kb-accent-border: var(--brand-primary-border, rgba(52, 211, 153, 0.2));
     --kb-border: rgba(255, 255, 255, 0.07);
 
     font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
@@ -65,8 +67,8 @@ const CUSTOM_STYLES = `
   }
 
   .kb-col-drop-active {
-    background: rgba(129, 140, 248, 0.04) !important;
-    border-color: rgba(129, 140, 248, 0.15) !important;
+    background: var(--kb-accent-glow) !important;
+    border-color: var(--kb-accent-border) !important;
   }
 
   .kb-scrollbar::-webkit-scrollbar {
@@ -234,7 +236,7 @@ export function KanbanApp() {
               onClick={handleBrainstorm}
               className="px-3 py-1.5 text-xs font-medium rounded-md
                 bg-[var(--kb-accent-glow)] text-[var(--kb-accent)] border border-[var(--kb-border)]
-                hover:bg-[var(--kb-accent)] hover:text-white
+                hover:bg-[var(--kb-accent)] hover:text-[var(--kb-accent-foreground)]
                 transition-colors duration-150 cursor-pointer"
             >
               Brainstorm
@@ -342,7 +344,7 @@ function EmptyState({ onAddCard }: { onAddCard: (title: string, priority: Priori
           <button
             type="submit"
             disabled={!title.trim()}
-            className="rounded-lg border border-indigo-400/30 bg-indigo-400/10 px-4 py-2 text-sm font-medium text-[var(--kb-accent)] transition-all hover:bg-indigo-400/[0.15] disabled:opacity-30 disabled:cursor-default"
+            className="rounded-lg border border-[var(--kb-accent-border)] bg-[var(--kb-accent-glow)] px-4 py-2 text-sm font-medium text-[var(--kb-accent)] transition-all hover:bg-[var(--kb-accent)] hover:text-[var(--kb-accent-foreground)] disabled:opacity-30 disabled:cursor-default"
           >
             Add
           </button>

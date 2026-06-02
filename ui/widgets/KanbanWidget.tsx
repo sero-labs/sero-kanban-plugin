@@ -189,7 +189,8 @@ function EmptyBoard() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2 p-3">
       <motion.div
-        className="size-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20"
+        className="size-10 rounded-xl"
+        style={{ background: 'linear-gradient(135deg, var(--brand-primary-muted, rgba(52, 211, 153, 0.2)), var(--brand-secondary-muted, rgba(20, 184, 166, 0.16)))' }}
         animate={{ scale: [1, 1.05, 1], rotate: [0, 2, -2, 0] }}
         transition={{ duration: 3, repeat: Infinity }}
       />

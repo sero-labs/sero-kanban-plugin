@@ -146,10 +146,10 @@ export const CardView = memo(function CardView({
         {card.column === 'in-progress' && card.status === 'agent-working' && (
           <div className="mt-1.5 ml-4 flex items-center gap-1.5">
             <span
-              className="inline-block w-1.5 h-1.5 rounded-full bg-indigo-400"
+              className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--kb-accent)]"
               style={{ animation: 'kb-pulse 2s ease-in-out infinite' }}
             />
-            <span className="text-[10px] font-medium text-indigo-400">
+            <span className="text-[10px] font-medium text-[var(--kb-accent)]">
               Implementing… {card.subtasks.length > 0
                 ? `${card.subtasks.filter((s) => s.status === 'completed').length}/${card.subtasks.length}`
                 : ''}

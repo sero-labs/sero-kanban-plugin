@@ -92,7 +92,7 @@ export const ColumnView = memo(function ColumnView({
     <div
       className={`flex flex-1 min-w-0 flex-col ${!isLast ? 'border-r border-[var(--kb-border)]' : ''}`}
       style={{
-        background: dragOver ? 'rgba(129, 140, 248, 0.03)' : undefined,
+        background: dragOver ? 'var(--kb-accent-glow)' : undefined,
         transition: 'background 0.15s',
       }}
       onDragEnter={handleDragEnter}
@@ -156,7 +156,7 @@ export const ColumnView = memo(function ColumnView({
                 setAdding(true);
                 requestAnimationFrame(() => inputRef.current?.focus());
               }}
-              className="w-full rounded-lg border border-dashed border-[var(--kb-border)] py-2 text-[11px] font-medium text-[var(--kb-dim)] transition-all hover:border-indigo-400/20 hover:bg-indigo-400/[0.04] hover:text-[var(--kb-muted)]"
+              className="w-full rounded-lg border border-dashed border-[var(--kb-border)] py-2 text-[11px] font-medium text-[var(--kb-dim)] transition-all hover:border-[var(--kb-accent-border)] hover:bg-[var(--kb-accent-glow)] hover:text-[var(--kb-accent)]"
             >
               + Add card
             </motion.button>
@@ -193,7 +193,7 @@ export const ColumnView = memo(function ColumnView({
               <button
                 type="submit"
                 disabled={!newTitle.trim()}
-                className="shrink-0 rounded-md border border-indigo-400/30 bg-indigo-400/10 px-2.5 py-1.5 text-[11px] font-medium text-[var(--kb-accent)] transition-all disabled:opacity-30"
+                className="shrink-0 rounded-md border border-[var(--kb-accent-border)] bg-[var(--kb-accent-glow)] px-2.5 py-1.5 text-[11px] font-medium text-[var(--kb-accent)] transition-all hover:bg-[var(--kb-accent)] hover:text-[var(--kb-accent-foreground)] disabled:opacity-30"
               >
                 Add
               </button>

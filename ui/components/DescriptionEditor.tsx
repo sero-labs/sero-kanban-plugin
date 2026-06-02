@@ -128,7 +128,7 @@ function EditMode({
           resize: 'none',
           overflow: 'hidden',
           borderRadius: '6px',
-          border: '1px solid rgba(129, 140, 248, 0.3)',
+          border: '1px solid var(--kb-accent-border)',
           backgroundColor: '#22252f',
           padding: '10px 12px',
           fontSize: '13px',
@@ -162,8 +162,8 @@ function EditMode({
               padding: '5px 10px',
               fontSize: '11px',
               fontWeight: 500,
-              backgroundColor: 'rgba(129, 140, 248, 0.15)',
-              color: '#818cf8',
+              backgroundColor: 'var(--kb-accent-glow)',
+              color: 'var(--kb-accent)',
             }}
           >
             Save
@@ -203,7 +203,7 @@ function DisplayMode({
       ) : (
         <button
           onClick={onStartEdit}
-          className="w-full rounded-md border border-dashed text-left transition-colors hover:border-[#818cf8]/30 hover:text-[#8b8d97]"
+          className="w-full rounded-md border border-dashed text-left transition-colors hover:border-[var(--kb-accent-border)] hover:text-[var(--kb-muted)]"
           style={{
             padding: '10px 12px',
             borderColor: 'rgba(255, 255, 255, 0.08)',
@@ -236,9 +236,9 @@ function EnhanceButton({
         padding: '5px 10px',
         fontSize: '11px',
         fontWeight: 500,
-        border: '1px solid rgba(129, 140, 248, 0.2)',
-        backgroundColor: loading ? 'rgba(129, 140, 248, 0.08)' : 'transparent',
-        color: loading ? '#a5b4fc' : '#818cf8',
+        border: '1px solid var(--kb-accent-border)',
+        backgroundColor: loading ? 'var(--kb-accent-glow)' : 'transparent',
+        color: 'var(--kb-accent)',
         opacity: disabled && !loading ? 0.4 : 1,
         cursor: disabled ? 'default' : 'pointer',
       }}

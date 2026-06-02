@@ -90,7 +90,7 @@ export function CardDetailSections({
               style={{
                 height: '100%',
                 borderRadius: '2px',
-                backgroundColor: '#818cf8',
+                backgroundColor: 'var(--kb-accent)',
                 width: `${(completedSubtasks / card.subtasks.length) * 100}%`,
                 transition: 'width 0.3s',
               }}
@@ -132,7 +132,7 @@ export function CardDetailSections({
                     backgroundColor: '#22252f',
                     padding: '2px 6px',
                     borderRadius: '4px',
-                    color: '#818cf8',
+                    color: 'var(--kb-accent)',
                   }}
                 >
                   {card.branch}
@@ -162,9 +162,9 @@ export function CardDetailSections({
           title="Start Planning"
           description="Moves card to Planning and triggers automated planning plus subtask generation."
           onClick={onStartPlanning}
-          color="#818cf8"
-          borderColor="rgba(129, 140, 248, 0.3)"
-          backgroundColor="rgba(129, 140, 248, 0.1)"
+          color="var(--kb-accent)"
+          borderColor="var(--kb-accent-border)"
+          backgroundColor="var(--kb-accent-glow)"
         />
       )}
 

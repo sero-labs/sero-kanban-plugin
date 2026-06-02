@@ -1,7 +1,7 @@
 /**
  * ImplementationActivityPanel — live progress feed for the implementation phase.
  *
- * Wraps ActivityPanel with indigo theme, adds a progress bar and optional stage indicator.
+ * Wraps ActivityPanel with the Kanban accent theme, adds a progress bar and optional stage indicator.
  */
 
 import { motion } from 'motion/react';
@@ -9,11 +9,11 @@ import type { Card, ImplementationProgress } from '../../shared/types';
 import { ActivityPanel, type ActivityPanelTheme } from './ActivityPanel';
 
 const THEME: ActivityPanelTheme = {
-  primary: '#818cf8',
-  primaryText: '#a5b4fc',
-  border: 'rgba(99, 102, 241, 0.25)',
-  background: 'rgba(99, 102, 241, 0.04)',
-  agentRunningBg: 'rgba(129, 140, 248, 0.12)',
+  primary: 'var(--kb-accent)',
+  primaryText: 'var(--kb-accent)',
+  border: 'var(--kb-accent-border)',
+  background: 'var(--kb-accent-glow)',
+  agentRunningBg: 'var(--kb-accent-glow)',
 };
 
 export function ImplementationActivityPanel({
@@ -36,9 +36,9 @@ export function ImplementationActivityPanel({
       headerSlot={
         <>
           {/* Overall progress bar */}
-          <div style={{ height: '3px', backgroundColor: 'rgba(99, 102, 241, 0.1)' }}>
+          <div style={{ height: '3px', backgroundColor: 'var(--kb-accent-glow)' }}>
             <motion.div
-              style={{ height: '100%', backgroundColor: '#818cf8', borderRadius: '0 2px 2px 0' }}
+              style={{ height: '100%', backgroundColor: 'var(--kb-accent)', borderRadius: '0 2px 2px 0' }}
               initial={{ width: 0 }}
               animate={{ width: `${progressPct}%` }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -51,7 +51,7 @@ export function ImplementationActivityPanel({
         </>
       }
       headerExtra={
-        <span style={{ fontSize: '10px', color: '#818cf8', fontWeight: 500, fontVariantNumeric: 'tabular-nums' }}>
+        <span style={{ fontSize: '10px', color: 'var(--kb-accent)', fontWeight: 500, fontVariantNumeric: 'tabular-nums' }}>
           {completedCount}/{totalCount}
         </span>
       }
@@ -74,7 +74,7 @@ function WaveIndicator({ currentWave, totalWaves }: { currentWave: number; total
                 i + 1 < currentWave
                   ? '#34d399'
                   : i + 1 === currentWave
-                    ? '#818cf8'
+                    ? 'var(--kb-accent)'
                     : 'rgba(255, 255, 255, 0.06)',
               transition: 'background-color 0.3s',
             }}

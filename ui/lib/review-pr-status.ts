@@ -51,12 +51,12 @@ export function getReviewPrStatus(card: Pick<Card, 'prNumber' | 'error'>): Revie
       actionLabel: 'Waiting for GitHub',
       primaryActionDisabled: true,
       tone: {
-        border: 'rgba(129, 140, 248, 0.24)',
-        background: 'rgba(129, 140, 248, 0.06)',
-        accent: '#818cf8',
-        text: '#c7d2fe',
-        buttonBackground: 'rgba(129, 140, 248, 0.16)',
-        buttonText: '#a5b4fc',
+        border: 'var(--kb-accent-border)',
+        background: 'var(--kb-accent-glow)',
+        accent: 'var(--kb-accent)',
+        text: 'var(--kb-muted)',
+        buttonBackground: 'var(--kb-accent-glow)',
+        buttonText: 'var(--kb-accent)',
       },
     };
   }
@@ -85,12 +85,12 @@ export function getReviewPrStatus(card: Pick<Card, 'prNumber' | 'error'>): Revie
       description: 'Sero could not confirm the GitHub merge state. Recheck once GitHub is reachable and the PR is merged.',
       actionLabel: 'Confirm PR Merged',
       tone: {
-        border: 'rgba(129, 140, 248, 0.24)',
-        background: 'rgba(129, 140, 248, 0.06)',
-        accent: '#818cf8',
-        text: '#c7d2fe',
-        buttonBackground: '#818cf8',
-        buttonText: '#0f1117',
+        border: 'var(--kb-accent-border)',
+        background: 'var(--kb-accent-glow)',
+        accent: 'var(--kb-accent)',
+        text: 'var(--kb-muted)',
+        buttonBackground: 'var(--kb-accent)',
+        buttonText: 'var(--kb-accent-foreground)',
       },
     };
   }
@@ -101,12 +101,12 @@ export function getReviewPrStatus(card: Pick<Card, 'prNumber' | 'error'>): Revie
     description: 'Merge this pull request on GitHub, then confirm it here to move the card to Done and unlock dependent work.',
     actionLabel: 'Confirm PR Merged',
     tone: {
-      border: 'rgba(52, 211, 153, 0.2)',
-      background: 'rgba(52, 211, 153, 0.04)',
-      accent: '#34d399',
+      border: 'var(--kb-accent-border)',
+      background: 'var(--kb-accent-glow)',
+      accent: 'var(--kb-accent)',
       text: '#8b8d97',
-      buttonBackground: '#34d399',
-      buttonText: '#0f1117',
+      buttonBackground: 'var(--kb-accent)',
+      buttonText: 'var(--kb-accent-foreground)',
     },
   };
 }
